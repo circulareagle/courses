@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Circular Eagle | Home</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <!-- Rotating Logo -->
 <div class="top-banner">
-  <img src="Dofoto_20251109_080359334.png" alt="Circular Eagle Logo" class="circular-logo">
+  <img src="images/circular-eagle.png" alt="Circular Eagle Logo" class="circular-logo">
 </div>
 
 <!-- Header -->
@@ -18,13 +18,20 @@
   <div class="container header-container">
     <h1>Circular Eagle</h1>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">eBooks</a>
-      <a href="courses.html">Courses</a>
-      <a href="articles.html">Articles</a>
-      <a href="consultancy.html">Consultancy</a>
-      <a href="news.html">Global News</a>
-      <a href="#footer">Contact</a>
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">eBooks</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="consultancy.html">Consultancy</a></li>
+        <li><a href="news.html">Global News</a></li>
+        <li><a href="#footer">Contact</a></li>
+      </ul>
     </nav>
   </div>
 </header>
@@ -149,6 +156,16 @@
     <p>&copy; 2025 Circular Eagle. All Rights Reserved.</p>
   </div>
 </footer>
+
+<!-- Hamburger Menu JS -->
+<script>
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('nav ul');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+</script>
 
 </body>
 </html>
