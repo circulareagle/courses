@@ -1,112 +1,154 @@
-/* ==============================
-   Root Variables
-============================== */
 :root {
-  --primary: #FFB900;       /* Gold accent */
-  --secondary: #222222;     /* Dark text */
-  --bg: #F5F5F9;            /* Page background */
-  --white: #FFFFFF;          /* Section/card background */
-  --footer-bg: #EAEAEA;      /* Footer background */
-  --shadow-light: rgba(0,0,0,0.05);
-  --shadow-medium: rgba(0,0,0,0.1);
-  --radius: 12px;
+  --primary-gradient: linear-gradient(135deg, #6a11cb, #2575fc); /* purple-blue gradient */
+  --secondary-gradient: linear-gradient(135deg, #ff9966, #ff5e62); /* orange-red gradient */
+  --bg: #fefefe;        /* light overall background */
+  --card-bg: #ffffffcc;  /* slightly transparent white for cards */
+  --shadow-light: rgba(0,0,0,0.08);
+  --shadow-medium: rgba(0,0,0,0.15);
+  --radius: 16px;
   --font-main: 'Poppins', sans-serif;
+  --font-heading: 'Roboto Slab', serif;
 }
 
 /* ==============================
-   Global Styles
+   Body Background
 ============================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
+  background: linear-gradient(to bottom right, #fefefe, #e6e6f0);
   font-family: var(--font-main);
-  background: var(--bg);
-  color: var(--secondary);
+  color: #222;
   line-height: 1.6;
-  scroll-behavior: smooth;
 }
 
 /* ==============================
-   Top Banner / Rotating Logo
+   Hero Section with Gradient
 ============================== */
-.top-banner {
+.hero {
   text-align: center;
-  padding: 20px 0;
-  background: var(--bg);
+  padding: 80px 20px;
+  border-radius: var(--radius);
+  margin: 30px auto;
+  max-width: 1100px;
+  background: var(--primary-gradient);
+  color: #fff;
+  box-shadow: 0 10px 30px var(--shadow-light);
 }
 
-.top-banner .circular-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 4px solid var(--primary);
-  animation: spin 12s linear infinite;
-  box-shadow: 0 0 20px rgba(255, 185, 0, 0.3);
+/* ==============================
+   Section Styling with Subtle Gradient
+============================== */
+section {
+  background: var(--card-bg);
+  padding: 70px 20px;
+  margin: 40px auto;
+  max-width: 1100px;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px var(--shadow-light);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px var(--shadow-medium);
+}
+
+/* Section image with subtle overlay effect */
+section img.section-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 0 auto 25px auto;
+  display: block;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+section img.section-image:hover {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* ==============================
+   Buttons with Gradient
+============================== */
+button {
+  background: var(--secondary-gradient);
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px var(--shadow-light);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px var(--shadow-medium);
 }
 
 /* ==============================
    Header & Navigation
 ============================== */
 header {
-  background: var(--white);
-  padding: 25px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 15px;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 12px var(--shadow-light);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  border-bottom: 1px solid #ddd;
 }
 
 header h1 {
-  color: var(--primary);
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  color: var(--primary-gradient);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
 }
 
 nav a {
-  margin: 0 15px;
+  margin: 0 18px;
   text-decoration: none;
   font-weight: 600;
-  color: var(--secondary);
-  transition: color 0.3s ease;
+  color: #222;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 nav a:hover {
-  color: var(--primary);
+  background: var(--accent);
+  color: var(--primary-gradient);
 }
 
 /* ==============================
-   Hero / Intro Section
+   Footer
 ============================== */
-.hero {
+footer {
+  background: #f0f0f5;
+  padding: 35px 20px;
   text-align: center;
-  padding: 60px 20px;
-  background: #FEF9F0;
-  border-radius: var(--radius);
-  box-shadow: 0 0 25px var(--shadow-light);
-}
-
-.hero h2 {
-  color: var(--primary);
-  font-size: 2rem;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  max-width: 700px;
-  margin: 0 auto;
   color: #555;
+  border-top: 1px solid #ccc;
 }
+
+footer a {
+  color: var(--primary-gradient);
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}}
 
 /* ==============================
    Section Styling
