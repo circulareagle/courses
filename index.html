@@ -138,8 +138,7 @@ body{
 }
 .hero::before{
   content:""; position:absolute; inset:0;
-  /* NOTE: Using a placeholder image */
-  background-image: url('https://via.placeholder.com/1200x400/eeeeee/cccccc?text=Hero+Abstract+BG'); 
+  background-image: url('images/hero-abstract.jpg'); 
   background-size:cover; background-position:center;
   opacity:0.12; mix-blend-mode:overlay;
   filter: blur(0.6px) saturate(1.05);
@@ -192,7 +191,7 @@ body{
 }
 .card.revealed{ opacity:1; transform:translateY(0); }
 .card:hover{ transform: translateY(-9px); box-shadow: var(--shadow-2); }
-.card-img{ width:100%; height:180px; object-fit:cover; border-radius:10px; display:block; margin-bottom:12px; background-color: #eee; }
+.card-img{ width:100%; height:180px; object-fit:cover; border-radius:10px; display:block; margin-bottom:12px; }
 .card h3{ margin:0 0 8px; font-size:1.05rem; color:var(--gold-700); }
 .card .price{ font-weight:700; color:var(--black); margin:0 0 8px; } /* New Price Style */
 .card p{ margin:0 0 12px; color:var(--muted); font-size:0.95rem; }
@@ -216,28 +215,19 @@ body{
 .form-group {
   margin-bottom: 8px;
 }
-.form-group label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
 .form-actions {
   display: flex; 
   gap: 10px; 
   align-items: center;
-  margin-top: 12px;
 }
 
 /* Form / inputs */
 .input{ display:block; width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--silver-300); font-size:0.95rem; background:transparent; color:var(--black); }
 .input:focus{ outline:3px solid rgba(212,175,55,0.14); outline-offset:2px; }
-textarea.input { font-family: var(--ff-base); }
-
 
 /* FOOTER */
 .site-footer{ margin-top:26px; padding:22px 20px; border-top:1px solid rgba(11,11,12,0.04); background:transparent; }
-.footer-inner{ display:flex; gap:12px; align-items:center; justify-content:space-between; max-width:var(--max-width); margin:0 auto; padding:0 var(--pad); flex-wrap:wrap; color:var(--muted); font-size: 0.9rem; }
+.footer-inner{ display:flex; gap:12px; align-items:center; justify-content:space-between; max-width:var(--max-width); margin:0 auto; padding:0 var(--pad); flex-wrap:wrap; color:var(--muted); }
 .footer-inner a{ color:var(--gold-700); text-decoration:none; font-weight:700; }
 
 /* Accessibility */
@@ -289,7 +279,7 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
 <header class="site-header" role="banner">
   <div class="header-inner container">
     <div class="brand">
-      <img src="https://via.placeholder.com/100/d4af37/8b6b00?text=CE" alt="Circular Eagle logo" class="logo-small" />
+      <img src="Dofoto_20251109_080359334.png" alt="Circular Eagle logo" class="logo-small" /> 
       <div class="site-title">Circular Eagle</div>
     </div>
     <nav class="nav" aria-label="Primary" role="navigation">
@@ -322,7 +312,7 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <img src="https://via.placeholder.com/220/d4af37/8b6b00?text=CE" alt="Circular Eagle emblem" class="hero-emblem" />
+      <img src="Dofoto_20251109_080359334.png" alt="Circular Eagle emblem" class="hero-emblem" />
     </div>
   </div>
 </section>
@@ -342,29 +332,29 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
 
       <div class="cards" role="list">
         <article class="card" role="listitem" aria-labelledby="ebook-1">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Business+eBook" alt="Business, Finance, and Side-hustle book cover" class="card-img" />
+          <img src="Dofoto_20251110_130733261.jpg" alt="Business, Finance, and Side-hustle book cover" class="card-img" />
           <h3 id="ebook-1">Business & Finance</h3>
           <p class="card-desc">Resources that help you increase income, stay financially smart and develop side-hustle success.</p>
           <div class="card-actions">
-            <a class="card-cta" href="#">Explore Category</a>
+            <a class="card-cta" href="https://circulareagle.com/Business">Explore Category</a>
           </div>
         </article>
 
         <article class="card" role="listitem" aria-labelledby="ebook-2">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Growth+eBook" alt="Personal Development and Growth book cover" class="card-img" />
+          <img src="Dofoto_20251111_121833390~2.jpg" alt="Personal Development and Growth book cover" class="card-img" />
           <h3 id="ebook-2">Personal Growth</h3>
           <p class="card-desc">Ebooks focused on mindset, improvement and personal progress.</p>
           <div class="card-actions">
-            <a class="card-cta" href="#">Explore Category</a>
+            <a class="card-cta" href="shop.html">Explore Category</a>
           </div>
         </article>
 
         <article class="card" role="listitem" aria-labelledby="ebook-3">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Health+eBook" alt="Health and Wellness book cover" class="card-img" />
+          <img src="Dofoto_20251111_204314449.jpg" alt="Health and Wellness book cover" class="card-img" />
           <h3 id="ebook-3">Health & Wellness</h3>
           <p class="card-desc">Fitness, nutrition and daily wellbeing.</p>
           <div class="card-actions">
-            <a class="card-cta" href="#">Explore Category</a>
+            <a class="card-cta" href="shop.html">Explore Category</a>
           </div>
         </article>
       </div>
@@ -379,28 +369,28 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
           <div class="lede">Don't miss our newest and most popular digital products.</div>
         </div>
         <div>
-          <a href="#" class="btn secondary">Shop All</a>
+          <a href="shop.html" class="btn secondary">Shop All</a>
         </div>
       </div>
 
       <div class="cards" role="list">
         <article class="card" role="listitem" aria-labelledby="product-1">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Product%3A+Focus" alt="Ebook cover: The Art of Deep Focus" class="card-img" />
+          <img src="images/product-focus.jpg" alt="Ebook cover: The Art of Deep Focus" class="card-img" /> 
           <h3 id="product-1">The Art of Deep Focus</h3>
           <div class="price">$19.99</div>
           <p class="card-desc">Master your concentration with proven techniques for creators and professionals.</p>
           <div class="card-actions">
-            <a class="card-cta" href="#">Buy Now</a>
+            <a class="card-cta" href="product-focus.html">Buy Now</a>
           </div>
         </article>
 
         <article class="card" role="listitem" aria-labelledby="product-2">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Template%3A+Finance" alt="Spreadsheet image for financial planning" class="card-img" />
+          <img src="images/product-finance.jpg" alt="Spreadsheet image for financial planning" class="card-img" /> 
           <h3 id="product-2">Financial Planning Template</h3>
           <div class="price">$9.99</div>
           <p class="card-desc">The ultimate simple spreadsheet for tracking monthly and yearly financial goals.</p>
           <div class="card-actions">
-            <a class="card-cta" href="#">Download</a>
+            <a class="card-cta" href="product-finance.html">Download</a>
           </div>
         </article>
       </div>
@@ -415,23 +405,23 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
           <div class="lede">Guided programs with exercises, video lessons and feedback.</div>
         </div>
         <div>
-          <a href="#" class="btn secondary">View All Courses</a>
+          <a href="courses.html" class="btn secondary">View All Courses</a>
         </div>
       </div>
 
       <div class="cards" role="list">
         <article class="card" role="listitem" aria-labelledby="course-1">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Course%3A+Digital+Business" alt="Digital Skills & Online Business course cover" class="card-img" />
+          <img src="Dofoto_20251112_173547355~3.jpg" alt="Digital Skills & Online Business course cover" class="card-img" />
           <h3 id="course-1">Digital Skills & Online Business</h3>
           <p class="card-desc">Step-by-step training for digital skills, online earning and building successful internet-based projects.</p>
-          <div class="card-actions"><a class="card-cta" href="#">Enroll Now</a></div>
+          <div class="card-actions"><a class="card-cta" href="courses.html">Enroll Now</a></div>
         </article>
 
         <article class="card" role="listitem" aria-labelledby="course-2">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Course%3A+Creative+Tech" alt="Creative and Tech Skills course cover" class="card-img" />
+          <img src="20251112_175426-COLLAGE~2.jpg" alt="Creative and Tech Skills course cover" class="card-img" />
           <h3 id="course-2">Creative & Tech Skills</h3>
           <p class="card-desc">Courses that help you create, design and build using modern creative and technical tools.</p>
-          <div class="card-actions"><a class="card-cta" href="#">Enroll Now</a></div>
+          <div class="card-actions"><a class="card-cta" href="courses.html">Enroll Now</a></div>
         </article>
       </div>
     </div>
@@ -445,23 +435,23 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
           <div class="lede">Short, evidence-backed pieces to inform your practice.</div>
         </div>
         <div>
-          <a href="#" class="btn secondary">Read All Articles</a>
+          <a href="articles.html" class="btn secondary">Read All Articles</a>
         </div>
       </div>
 
       <div class="cards" role="list">
         <article class="card" role="listitem" aria-labelledby="article-1">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Article%3A+Focus" alt="Staying Focused article image" class="card-img" />
+          <img src="images/article1.jpg" alt="Staying Focused article image" class="card-img" /> 
           <h3 id="article-1">Staying Focused in a Noisy World</h3>
           <p class="card-desc">How to design an environment that preserves attention.</p>
-          <div class="card-actions"><a class="card-cta" href="#">Read Article</a></div>
+          <div class="card-actions"><a class="card-cta" href="articles.html">Read Article</a></div>
         </article>
 
         <article class="card" role="listitem" aria-labelledby="article-2">
-          <img src="https://via.placeholder.com/320x180/eee/aaa?text=Article%3A+Inspiration" alt="Daily Inspiration article image" class="card-img" />
+          <img src="images/article2.jpg" alt="Daily Inspiration article image" class="card-img" /> 
           <h3 id="article-2">Daily Inspiration Practices</h3>
           <p class="card-desc">Tiny routines that compound into bigger spiritual and creative gains.</p>
-          <div class="card-actions"><a class="card-cta" href="#">Read Article</a></div>
+          <div class="card-actions"><a class="card-cta" href="articles.html">Read Article</a></div>
         </article>
       </div>
     </div>
@@ -492,4 +482,18 @@ a:focus, button:focus, .card-cta:focus, .input:focus { outline: 3px solid rgba(2
             </div>
             <div class="form-actions">
               <button type="submit" class="btn primary">Send Request</button>
-              <div id="
+              <div id="formStatus" aria-live="polite" style="color:var(--muted); font-size:0.95rem;"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+   </section>
+
+</main>
+
+<footer id="footer" class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>Contact: <a href="mailto:circular.eagle@gmail.com">circular.eagle@gmail.com</a></div>
+    <div>Social: <a href="#" aria-label="YouTube">YouTube</a> • <a href="#" aria-label="Twitter">Twitter</a> • <a href="#" aria-label="LinkedIn">LinkedIn</a></div>
+    <div>&copy;
