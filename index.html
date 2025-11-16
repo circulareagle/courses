@@ -81,7 +81,7 @@
                     <span class="text-xl font-extrabold tracking-tight text-ce-black">Circular<span class="text-ce-gold">Eagle</span></span>
                 </a>
 
-                <!-- Desktop Navigation -->
+ <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
                     <a href="#ebooks" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">eBooks</a>
                     <a href="#courses" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Courses</a>
@@ -112,7 +112,7 @@
 
     <main class="max-w-7xl mx-auto">
 
-        <!-- 1. HERO / VALUE PROPOSITION: Full Width -->
+           <!-- 1. HERO / VALUE PROPOSITION: Full Width -->
         <section class="relative w-full overflow-hidden pt-12 pb-16 md:pt-24 md:pb-32 px-4 sm:px-6 lg:px-8 bg-ce-white/80 border-b border-gray-100">
             <!-- Subtle Gold Background Detail -->
             <div class="absolute inset-0 bg-gradient-to-tr from-ce-gold/5 to-transparent opacity-50 pointer-events-none"></div>
@@ -172,8 +172,7 @@
                             </a>
                         </div>
                     </article>
-
-                    <!-- Ebook Card 2: Personal Development -->
+  <!-- Ebook Card 2: Personal Development -->
                     <article class="bg-ce-white rounded-xl card-lift transition-default shadow-lg overflow-hidden border-t-4 border-ce-gold">
                         <img src="https://placehold.co/600x350/C6D8E4/0B0B0C?text=Mindset+Mastery" alt="Personal Development cover" class="w-full h-40 object-cover rounded-t-xl mb-4">
                         <div class="p-6 pt-0">
@@ -259,7 +258,7 @@
                         </div>
                     </article>
 
-                    <!-- Article 2 -->
+                     <!-- Article 2 -->
                     <article class="bg-ce-white rounded-xl card-lift transition-default shadow-md overflow-hidden border border-gray-100">
                         <img src="https://placehold.co/700x300/D4AF37/0B0B0C?text=Creative+Routines" alt="Daily Inspiration article image" class="w-full h-48 object-cover">
                         <div class="p-6">
@@ -288,3 +287,192 @@
                         <div class="text-ce-gold mx-auto mb-4">
                             <!-- Target Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12H19M12 5l-4 4M12 5l4 4"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-ce-white mb-2">Strategic Roadmap</h3>
+                        <p class="text-gray-400 text-sm mb-4">Develop a clear, executable plan for the next 12-24 months in your creative or business endeavors.</p>
+                        <button class="px-6 py-2 text-sm font-semibold rounded-full bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default" onclick="scrollToForm()">
+                            Inquire Now
+                        </button>
+                    </div>
+
+                     <!-- Service Card 2: Technical -->
+                    <div class="bg-gray-800 rounded-xl p-6 text-center shadow-lg transition-default border-t-4 border-ce-gold">
+                        <div class="text-ce-gold mx-auto mb-4">
+                            <!-- Code Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-ce-white mb-2">Technical Audit</h3>
+                        <p class="text-gray-400 text-sm mb-4">Expert review of your architecture, tech stack, and digital infrastructure for maximum efficiency.</p>
+                        <button class="px-6 py-2 text-sm font-semibold rounded-full bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default" onclick="scrollToForm()">
+                            Inquire Now
+                        </button>
+                    </div>
+
+                    <!-- Service Card 3: Coaching -->
+                    <div class="bg-gray-800 rounded-xl p-6 text-center shadow-lg transition-default border-t-4 border-ce-gold">
+                        <div class="text-ce-gold mx-auto mb-4">
+                            <!-- User Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-ce-white mb-2">Personal Coaching</h3>
+                        <p class="text-gray-400 text-sm mb-4">Dedicated 1-on-1 sessions to break through mental blocks and refine your self-development trajectory.</p>
+                        <button class="px-6 py-2 text-sm font-semibold rounded-full bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default" onclick="scrollToForm()">
+                            Inquire Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contact Form (Embedded) -->
+                <div class="mt-16 bg-gray-900 p-8 rounded-xl max-w-lg mx-auto" id="contactFormContainer">
+                    <h3 class="text-2xl font-bold text-ce-gold mb-6 text-center">Request a Discovery Call</h3>
+                    <form id="contactForm" aria-label="Consultancy Contact Form">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                            <input id="name" class="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white focus:ring-ce-gold focus:border-ce-gold transition-default" name="name" required placeholder="Your full name" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                            <input id="email" type="email" class="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white focus:ring-ce-gold focus:border-ce-gold transition-default" name="email" required placeholder="you@example.com" />
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Project Summary</label>
+                            <textarea id="message" class="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white focus:ring-ce-gold focus:border-ce-gold transition-default" name="message" required placeholder="Brief description of your needs and goals" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-gold-effect py-3 text-lg font-bold rounded-lg bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default">
+                            Submit Inquiry
+                        </button>
+                        <div id="formStatus" aria-live="polite" class="text-center mt-3 text-sm text-gray-400"></div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 7. FOOTER -->
+    <footer id="footer" class="bg-ce-white border-t border-gray-100 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <!-- Brand Info -->
+                <div class="col-span-2 lg:col-span-2">
+                    <h3 class="text-2xl font-extrabold tracking-tight text-ce-black mb-3">Circular<span class="text-ce-gold">Eagle</span></h3>
+                    <p class="text-sm text-ce-muted">Knowledge for the next generation of innovators and seekers.</p>
+                </div>
+
+                <!-- Links 1 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-ce-black mb-3">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#ebooks" class="text-ce-muted hover:text-ce-gold-dark transition-default">eBook Formats</a></li>
+                        <li><a href="#courses" class="text-ce-muted hover:text-ce-gold-dark transition-default">Course Index</a></li>
+                        <li><a href="#articles" class="text-ce-muted hover:text-ce-gold-dark transition-default">Latest Insights</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-ce-black mb-3">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-ce-muted hover:text-ce-gold-dark transition-default">About Us</a></li>
+                        <li><a href="#" class="text-ce-muted hover:text-ce-gold-dark transition-default">Terms & Policy</a></li>
+                        <li><a href="#" class="text-ce-muted hover:text-ce-gold-dark transition-default">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="text-lg font-semibold text-ce-black mb-3">Connect</h4>
+                    <p class="text-sm text-ce-muted hover:text-ce-gold-dark mb-2">support@circulareagle.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" aria-label="Twitter" class="text-ce-muted hover:text-ce-gold-dark transition-default">Twitter</a>
+                        <a href="#" aria-label="LinkedIn" class="text-ce-muted hover:text-ce-gold-dark transition-default">LinkedIn</a>
+                        <a href="#" aria-label="YouTube" class="text-ce-muted hover:text-ce-gold-dark transition-default">YouTube</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-gray-100 text-center">
+                <p class="text-sm text-ce-muted">
+                    &copy; 2025 Circular Eagle. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Toggles the visibility of the mobile menu.
+         */
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        /**
+         * Scrolls smoothly to the contact form section.
+         */
+        function scrollToForm() {
+            const formContainer = document.getElementById('contactFormContainer');
+            if (formContainer) {
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Focus on the name input after scrolling
+                setTimeout(() => document.getElementById('name').focus(), 700);
+            } else {
+                showMessage("The consultancy form is unavailable.", 'bg-red-600');
+            }
+        }
+
+        /**
+         * Displays a temporary, dismissible message (replaces alert() or console logs UX changes).
+         * @param {string} message - The message content.
+         * @param {string} bgColor - Tailwind background color class.
+         */
+        function showMessage(message, bgColor = 'bg-ce-black') {
+            const container = document.getElementById('message-container');
+            const messageElement = document.createElement('div');
+            const id = 'msg-' + Date.now();
+
+            messageElement.id = id;
+            messageElement.className = `${bgColor} text-white p-4 rounded-lg shadow-xl max-w-xs transition-opacity duration-300 opacity-0 transform translate-y-2`;
+            messageElement.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium">${message}</span>
+                    <button class="text-white ml-4 opacity-75 hover:opacity-100" onclick="document.getElementById('${id}').remove()">
+                        <!-- Close Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            `;
+            container.appendChild(messageElement);
+
+            // Animate in
+            setTimeout(() => {
+                messageElement.classList.remove('opacity-0', 'translate-y-2');
+            }, 10);
+
+            // Auto-remove after 4 seconds
+            setTimeout(() => {
+                messageElement.classList.add('opacity-0', 'translate-y-2');
+                // Remove from DOM after transition
+                messageElement.addEventListener('transitionend', () => messageElement.remove());
+            }, 4000);
+        }
+
+        // --- Form Handling ---
+        const form = document.getElementById('contactForm');
+        const status = document.getElementById('formStatus');
+        if (form && status) {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                status.textContent = 'Sending request...';
+
+                // In a real application, you would use fetch() here to send data to a backend API.
+                setTimeout(() => {
+                    status.textContent = 'Success! We will contact you within 24 hours.';
+                    form.reset();
+                    showMessage('Your consultancy request has been submitted!', 'bg-ce-gold-dark');
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>
