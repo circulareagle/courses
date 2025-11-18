@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immersive Training Courses Hub | Circular Eagle</title>
+    <meta name="description" content="Explore a comprehensive catalog of 25+ high-demand non-technical digital skills courses covering content creation, marketing, freelancing, and business operations." />
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind with Gold/Black/White Palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ce-white': '#FFFFFF',
+                        'ce-gold': '#D4AF37', // Classic Gold
+                        'ce-gold-dark': '#8B6B00', // Darker gold for text/hover
+                        'ce-black': '#0B0B0C',
+                        'ce-muted': '#6B6F76',
+                        'ce-silver-light': '#F9FAFB', // Near-white subtle background
+                        'ce-success': '#10B981', // Green for success
+                        'ce-error': '#EF4444', // Red for errors
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Georgia', 'Merriweather', 'serif'], // For premium titles
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General smooth transition for hover effects */
+        .transition-default {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Subtle ring effect on gold elements */
+        .btn-gold-effect {
+            box-shadow: 0 10px 20px -5px rgba(212, 175, 55, 0.2);
+        }
+        .btn-gold-effect:hover {
+            box-shadow: 0 15px 30px -8px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Modal Backdrop */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Course Card Hover Effect (subtle lift) */
+        .course-item {
+            display: block; /* Ensure button acts as a block */
+            transition: all 0.2s ease-in-out;
+        }
+        .course-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            border-color: theme('colors.ce-gold-dark');
+        }
+        .course-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px; /* Fix size */
+        }
+        
+        /* Modal-specific styling for scrollable content */
+        #modal-content-container {
+            max-height: 80vh; /* Ensures modal fits on smaller screens */
+        }
+
+        /* Responsive Modal adjustments */
+        @media (max-width: 640px) {
+            #modal-content-container {
+                max-height: 90vh; 
+            }
+        }
+    </style>
+</head>
+<body class="bg-ce-silver-light text-ce-black font-sans min-h-screen">
+
+    <!-- Message Box Container -->
+    <div id="message-container" class="fixed bottom-4 right-4 z-[100] space-y-2"></div>
+
+    <!-- HEADER: Floating, High Contrast -->
+    <header class="sticky top-0 z-50 bg-ce-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4 md:py-5">
+                <!-- Logo & Back to Home Link -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full border-2 border-ce-gold-dark flex items-center justify-center text-sm font-bold text-ce-gold-dark">
+                        CE
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-ce-black">Circular<span class="text-ce-gold">Eagle</span></span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html#ebooks" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">eBooks Hub</a>
+                    <a href="index.html#courses" class="text-base font-medium text-ce-gold-dark hover:text-ce-black transition-default">Courses</a>
+                    <a href="index.html#consultancy" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Consultancy</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-button" class="md:hidden text-ce-black hover:text-ce-gold transition-default p-2 rounded-lg" onclick="toggleMenu()">
+                    <!-- Menu Icon (Hamburger) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-ce-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#ebooks" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">eBooks Hub</a>
+                <a href="index.html#courses" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Courses</a>
+                <a href="index.html#consultancy" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Consultancy</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto">
+        <div class="px-4 sm:px-6 lg:px-8">
+
+            <!-- 1. HERO / CATEGORY OVERVIEW -->
+            <section class="w-full overflow-hidden pt-12 pb-16 md:pt-20 md:pb-20 text-center bg-ce-black text-ce-white rounded-b-2xl shadow-xl border-b-4 border-ce-gold mb-12">
+                <p class="text-lg font-semibold text-ce-gold mb-3 uppercase tracking-wider">Circular Eagle Academy</p>
+                <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-4 leading-none">
+                    The Non-Technical <span class="text-ce-gold">Digital Skill Catalog</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-400 max-w-4xl mx-auto mb-10">
+                    Master the **25 most in-demand creative, marketing, and operational skills** required to succeed in any modern online business, from creation to scaling.
+                </p>
+
+                <div class="flex justify-center">
+                    <a href="#course-catalog" 
+                        class="btn-gold-effect inline-flex items-center justify-center px-10 py-3 border border-ce-gold-dark text-lg font-bold rounded-full text-ce-black bg-ce-gold hover:bg-ce-gold-dark hover:text-white transition-default"
+                    >
+                        View All 25 Courses &rarr;
+                    </a>
+                </div>
+            </section>
+            
+            <!-- 2. COURSE CATALOG LISTING -->
+            <section id="course-catalog" class="py-12 md:py-16">
+                <h2 class="font-serif text-4xl font-bold text-center mb-12">
+                    Our Comprehensive Curriculum (25 Courses)
+                </h2>
+
+                <!-- Category I: Content & Creative Mastery -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold font-serif text-ce-gold-dark mb-6 border-b-2 border-ce-gold/50 pb-2">I. Content & Creative Mastery</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <!-- 3. Content Creation -->
+                        <button onclick="openCourseModal('content-creation')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Feather -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M17.2 13.9 19.5 15.2c.4.2.8.2 1.1-.1l1.1-.9c.3-.3.3-.8.1-1.1L19.5 12c-.2-.4-.2-.8-.1-1.1L12 3.5"/><path d="M12 3.5 16.5 8 18 6.5 13.5 2"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Content Creation</h4>
+                                    <p class="text-sm text-ce-muted">Strategies for high-volume, high-quality content across platforms.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 4. Copywriting -->
+                        <button onclick="openCourseModal('copywriting')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Clipboard List -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 10h6"/><path d="M9 14h6"/><path d="M9 18h6"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Copywriting</h4>
+                                    <p class="text-sm text-ce-muted">Writing persuasive copy for ads, emails, and landing pages that convert.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 5. Graphic Design -->
+                        <button onclick="openCourseModal('graphic-design')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Pen Tool -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3 3z"/><path d="M18 13l-4 4"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Graphic Design</h4>
+                                    <p class="text-sm text-ce-muted">Visual design fundamentals for social media, branding, and web assets.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 6. Video Editing -->
+                        <button onclick="openCourseModal('video-editing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Film -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M17 3v18"/><path d="M3 8h18"/><path d="M3 16h18"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Video Editing</h4>
+                                    <p class="text-sm text-ce-muted">Editing techniques for short-form content and longer videos (non-technical).</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 8. YouTube Content Mastery -->
+                        <button onclick="openCourseModal('youtube-content-mastery')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: YouTube (using Play) -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">YouTube Content Mastery</h4>
+                                    <p class="text-sm text-ce-muted">Building a channel, optimizing titles, and maximizing view retention.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 13. Podcasting & Podcast Editing -->
+                        <button onclick="openCourseModal('podcasting-editing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Mic -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Podcasting & Podcast Editing</h4>
+                                    <p class="text-sm text-ce-muted">From concept and recording to basic audio cleanup and distribution.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 18. Voice-over Training -->
+                        <button onclick="openCourseModal('voice-over-training')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Volume 2 -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Voice-over Training</h4>
+                                    <p class="text-sm text-ce-muted">Developing vocal tone, articulation, and home studio techniques.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 19. UGC (User-Generated Content) Creation -->
+                        <button onclick="openCourseModal('ugc-creation')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Camera -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a2 2 0 0 1 2-2h4l2 3h4a2 2 0 0 1 2 2v1"/><circle cx="15" cy="18" r="3"/><path d="M16.5 14.8V21.4"/><path d="M13.5 14.8V21.4"/><path d="M13.5 18H19.5"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">UGC (User-Generated Content) Creation</h4>
+                                    <p class="text-sm text-ce-muted">Producing authentic, native content for brand campaigns and social proof.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 20. Photography & Smartphone Photography -->
+                        <button onclick="openCourseModal('photography')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Aperture -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M14.5 4.75l1.65 4.35H7.85l1.65-4.35"/><path d="M12 17.5V22.5"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Photography & Smartphone Photography</h4>
+                                    <p class="text-sm text-ce-muted">Capturing professional images using standard and mobile devices.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 24. Proofreading & Editing -->
+                        <button onclick="openCourseModal('proofreading-editing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Check Square -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Proofreading & Editing</h4>
+                                    <p class="text-sm text-ce-muted">Mastering grammar, style guides, and refining content flow for clarity.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 23. Transcription & Subtitling -->
+                        <button onclick="openCourseModal('transcription-subtitling')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: File Text -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><line x1="9" x2="15" y1="12" y2="12"/><line x1="9" x2="15" y1="16" y2="16"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Transcription & Subtitling</h4>
+                                    <p class="text-sm text-ce-muted">Creating accurate transcripts and optimized subtitles for video accessibility.</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category II: Marketing & Scaling Strategy -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold font-serif text-ce-gold-dark mb-6 border-b-2 border-ce-gold/50 pb-2">II. Marketing & Scaling Strategy</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        <!-- 1. Digital Marketing -->
+                        <button onclick="openCourseModal('digital-marketing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Target -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><path d="M12 12V2"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Digital Marketing</h4>
+                                    <p class="text-sm text-ce-muted">Creating integrated strategies across paid, earned, and owned media.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 2. Social Media Marketing -->
+                        <button onclick="openCourseModal('social-media-marketing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Share 2 -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="18" r="3"/><circle cx="17" cy="6" r="3"/><path d="m11 13 6-3"/><path d="m17 6-2 3"/><path d="m7 18 2-3"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Social Media Marketing</h4>
+                                    <p class="text-sm text-ce-muted">Building presence, running organic campaigns, and maximizing engagement.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 15. Email Marketing -->
+                        <button onclick="openCourseModal('email-marketing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Mail -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Email Marketing</h4>
+                                    <p class="text-sm text-ce-muted">Designing high-converting funnels, sequences, and newsletters.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 16. Search Engine Optimization (SEO) — non-technical side -->
+                        <button onclick="openCourseModal('non-technical-seo')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Search -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Search Engine Optimization (SEO) — non-technical</h4>
+                                    <p class="text-sm text-ce-muted">Keyword research, content structuring, and link-building strategies.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 14. Branding & Personal Brand Building -->
+                        <button onclick="openCourseModal('branding-personal-brand')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Award -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><path d="M15.4 21.6 12 18 8.6 21.6"/><path d="M12 2v2"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Branding & Personal Brand Building</h4>
+                                    <p class="text-sm text-ce-muted">Defining values, mission, voice, and visual identity for market authority.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 17. Community Management -->
+                        <button onclick="openCourseModal('community-management')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Users -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Community Management</h4>
+                                    <p class="text-sm text-ce-muted">Fostering engagement, moderation, and turning members into brand advocates.</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category III: Income Streams & Business Operations -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold font-serif text-ce-gold-dark mb-6 border-b-2 border-ce-gold/50 pb-2">III. Income Streams & Business Operations</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        <!-- 7. Affiliate Marketing -->
+                        <button onclick="openCourseModal('affiliate-marketing')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Link -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07L12 6M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07L12 18"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Affiliate Marketing</h4>
+                                    <p class="text-sm text-ce-muted">Leveraging partnerships and content for passive commission generation.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 21. E-commerce & Dropshipping -->
+                        <button onclick="openCourseModal('ecommerce-dropshipping')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Shopping Cart -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.72a2 2 0 0 0 2-1.58L23.95 5.5"/><path d="M5.5 5h18"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">E-commerce & Dropshipping</h4>
+                                    <p class="text-sm text-ce-muted">Setting up online stores, sourcing products, and managing logistics.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 9. Freelancing & Upwork/Fiverr Mastery -->
+                        <button onclick="openCourseModal('freelancing-mastery')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Briefcase -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Freelancing & Upwork/Fiverr Mastery</h4>
+                                    <p class="text-sm text-ce-muted">Winning high-paying projects and building a professional profile on major platforms.</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <!-- 10. Virtual Assistant Training -->
+                        <button onclick="openCourseModal('virtual-assistant-training')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: User Check -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Virtual Assistant Training</h4>
+                                    <p class="text-sm text-ce-muted">High-level client management, scheduling, and digital organization for VAs.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 25. Online Coaching & Course Creation -->
+                        <button onclick="openCourseModal('online-coaching')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Book Open -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Online Coaching & Course Creation</h4>
+                                    <p class="text-sm text-ce-muted">Developing curriculum, pricing models, and launching digital educational products.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 11. Public Speaking & Communication -->
+                        <button onclick="openCourseModal('public-speaking')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Megaphone -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 2 2h4l4 4V7l-4 4H5l-2 2z"/><path d="M22 13c-1.87 0-3.66-.46-5.27-1.33"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Public Speaking & Communication</h4>
+                                    <p class="text-sm text-ce-muted">Techniques for persuasive speaking, presenting online, and engaging audiences.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 12. Presentation & Pitch Deck Design -->
+                        <button onclick="openCourseModal('presentation-design')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Monitor -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="3" rx="2"/><path d="M12 19v3"/><path d="M8 23h8"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Presentation & Pitch Deck Design</h4>
+                                    <p class="text-sm text-ce-muted">Creating visually stunning and strategically sound presentations for investors and clients.</p>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 22. Customer Support / Customer Success -->
+                        <button onclick="openCourseModal('customer-support')" class="course-item p-4 bg-ce-white rounded-lg shadow-md border border-gray-100 text-left transition-default">
+                            <div class="flex items-start space-x-3">
+                                <!-- Icon: Life Buoy -->
+                                <svg class="course-icon text-ce-gold-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 10l4 4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M20 12h2"/><path d="M2 12h2"/></svg>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-ce-black">Customer Support / Customer Success</h4>
+                                    <p class="text-sm text-ce-muted">Building loyalty, handling difficult clients, and optimizing the customer journey.</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 3. FINAL CTA STRIP -->
+            <section class="py-12 my-12 bg-ce-gold rounded-xl p-8 text-center shadow-2xl">
+                <h2 class="text-3xl font-bold text-ce-black mb-3">Ready to Transform Your Digital Business?</h2>
+                <p class="text-ce-black text-lg mb-6 max-w-2xl mx-auto opacity-80">
+                    Join the waitlist for the upcoming cohort and receive exclusive early access and pricing announcements.
+                </p>
+                <!-- This button is just a general waitlist, not linked to a specific course -->
+                <button 
+                    onclick="openInfoModal('General Waitlist Sign-up')"
+                    class="btn-gold-effect inline-flex items-center justify-center px-10 py-3 border border-ce-black text-lg font-bold rounded-full text-ce-white bg-ce-black hover:bg-ce-gold-dark hover:text-white transition-default"
+                >
+                    Secure My Early Access
+                </button>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- 4. FOOTER (Standard Style) -->
+    <footer id="footer" class="bg-ce-white border-t border-gray-100 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <!-- Brand Info -->
+                <div class="col-span-2 lg:col-span-2">
+                    <h3 class="text-2xl font-extrabold tracking-tight text-ce-black mb-3">Circular<span class="text-ce-gold">Eagle</span></h3>
+                    <p class="text-sm text-ce-muted">Knowledge for the next generation of innovators and seekers.</p>
+                </div>
+
+                <!-- Links 1 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-ce-black mb-3">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#ebooks" class="text-ce-muted hover:text-ce-gold-dark transition-default">eBook Formats</a></li>
+                        <li><a href="index.html#courses" class="text-ce-muted hover:text-ce-gold-dark transition-default">Course Index</a></li>
+                        <li><a href="index.html#articles" class="text-ce-muted hover:text-ce-gold-dark transition-default">Latest Insights</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-ce-black mb-3">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-ce-muted hover:text-ce-gold-dark transition-default">About Us</a></li>
+                        <li><a href="#" class="text-ce-muted hover:text-ce-gold-dark transition-default">Terms & Policy</a></li>
+                        <li><a href="#" class="text-ce-muted hover:text-ce-gold-dark transition-default">Careers</a></li>
+                    </ul>
+                </div>
+
+                 <!-- Contact -->
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="text-lg font-semibold text-ce-black mb-3">Connect</h4>
+                    <p class="text-sm text-ce-muted hover:text-ce-gold-dark mb-2">support@circulareagle.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" aria-label="Twitter" class="text-ce-muted hover:text-ce-gold-dark transition-default">Twitter</a>
+                        <a href="#" aria-label="LinkedIn" class="text-ce-muted hover:text-ce-gold-dark transition-default">LinkedIn</a>
+                        <a href="#" aria-label="YouTube" class="text-ce-muted hover:text-ce-gold-dark transition-default">YouTube</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-gray-100 text-center">
+                <p class="text-sm text-ce-muted">
+                    &copy; 2025 Circular Eagle. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- COURSE INFO MODAL (Dynamic Content) -->
+    <div id="course-info-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-backdrop p-4 transition-opacity duration-300 opacity-0" onclick="closeCourseModal(event)">
+        <div id="modal-content-container" class="bg-ce-white rounded-xl shadow-2xl w-full max-w-2xl overflow-y-auto transform transition-transform duration-300 scale-95" onclick="event.stopPropagation()">
+            
+            <!-- Modal Header -->
+            <div class="sticky top-0 flex justify-between items-center p-5 border-b border-gray-100 bg-ce-gold-dark shadow-md z-10">
+                <h2 id="modal-course-name" class="text-xl font-bold text-ce-white font-serif"></h2>
+                <button onclick="closeCourseModal()" class="text-ce-white hover:text-ce-gold p-1 rounded-full transition-default">
+                    <!-- Close Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8">
+                <!-- 2. Description -->
+                <h3 class="text-xl font-bold text-ce-black mb-2">What You'll Learn</h3>
+                <p id="modal-description" class="text-ce-black text-base mb-6 leading-relaxed border-b pb-4"></p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 mb-6">
+                    <!-- 3. Target Audience -->
+                    <div>
+                        <h4 class="font-bold text-ce-gold-dark text-sm uppercase tracking-wider mb-1">Target Audience</h4>
+                        <p id="modal-audience" class="text-ce-black text-base"></p>
+                    </div>
+
+                    <!-- 4. Instructor/Team -->
+                    <div>
+                        <h4 class="font-bold text-ce-gold-dark text-sm uppercase tracking-wider mb-1">Instructor / Team</h4>
+                        <p id="modal-instructor" class="text-ce-black text-base"></p>
+                    </div>
+                    
+                    <!-- 5. Delivery Method -->
+                    <div>
+                        <h4 class="font-bold text-ce-gold-dark text-sm uppercase tracking-wider mb-1">Delivery Method</h4>
+                        <p id="modal-delivery" class="text-ce-black text-base"></p>
+                    </div>
+
+                    <!-- 6. Duration -->
+                    <div>
+                        <h4 class="font-bold text-ce-gold-dark text-sm uppercase tracking-wider mb-1">Duration / Commitment</h4>
+                        <p id="modal-duration" class="text-ce-black text-base"></p>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t mt-4">
+                    <p class="text-ce-muted text-sm italic mb-4">
+                        Enter your email below to receive the **full course syllabus**, including module breakdowns, pricing, and launch dates.
+                    </p>
+                    <!-- Email Input -->
+                    <input type="email" id="modal-email-input" placeholder="Enter your email address..." class="w-full p-3 mb-4 border-2 border-gray-200 rounded-lg focus:border-ce-gold-dark focus:ring-0 transition-default" />
+
+                    <!-- Final CTA Button -->
+                    <button 
+                        onclick="handleSyllabusRequest()"
+                        class="w-full py-3 px-6 text-base font-bold rounded-full bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default btn-gold-effect"
+                    >
+                        Send Me the Full Syllabus
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- COURSE DATA STRUCTURE (Simulated Backend Data) ---
+        const courseData = {
+            'content-creation': {
+                name: 'Content Creation Blueprint',
+                description: 'Learn scalable strategies for producing high-quality, engaging content consistently, focusing on audience-first planning and repurposing across digital channels.',
+                audience: 'Aspiring content creators, small business owners, and digital marketing assistants.',
+                instructor: 'CE Strategy Team & Lead Creator, Alex D.',
+                delivery: '5 hours of recorded video modules, 4 downloadable PDF guides, and a private community forum.',
+                duration: '4 Weeks (Approx. 1.5 hours per week)',
+            },
+            'copywriting': {
+                name: 'Persuasive Copywriting Masterclass',
+                description: 'Master the art of writing compelling sales copy for landing pages, email sequences, and advertising, turning clicks into customers.',
+                audience: 'Marketers, freelancers offering writing services, and e-commerce store owners.',
+                instructor: 'Jane S. (Certified Conversion Copywriter)',
+                delivery: '7 hours of recorded video lessons, weekly live Q&A sessions, and access to a swipe file library.',
+                duration: '6 Weeks (Approx. 2 hours per week)',
+            },
+            'graphic-design': {
+                name: 'No-Code Graphic Design Fundamentals',
+                description: 'Learn to use accessible, free tools (like Canva and Figma) to create professional-looking brand assets, social media graphics, and digital product mockups.',
+                audience: 'Anyone needing professional visuals without investing in complex software (Photoshop/Illustrator).',
+                instructor: 'Mark T. (Visual Brand Consultant)',
+                delivery: 'Self-paced video modules (40 lessons) and template packs.',
+                duration: '3 Weeks (Approx. 1 hour per week)',
+            },
+            'video-editing': {
+                name: 'Rapid Video Editing for Social Media',
+                description: 'Focus on efficient, fast-paced editing for short-form video (Reels, TikTok) and basic long-form video cleanup using user-friendly software.',
+                audience: 'Social media managers, small-scale YouTubers, and UGC creators.',
+                instructor: 'Sam K. (Short-Form Video Specialist)',
+                delivery: 'Recorded video tutorials focused on mobile and desktop-light editing tools.',
+                duration: '4 Weeks (Approx. 1 hour per week)',
+            },
+            'youtube-content-mastery': {
+                name: 'YouTube Growth & Optimization',
+                description: 'Learn the non-technical side of YouTube: topic selection, title/thumbnail optimization, script structuring, and maximizing viewer retention rates.',
+                audience: 'New and existing YouTubers, video marketers.',
+                instructor: 'Alex D. & CE Team',
+                delivery: 'Recorded modules, downloadable checklists, and case studies.',
+                duration: '5 Weeks (Approx. 1.5 hours per week)',
+            },
+            'podcasting-editing': {
+                name: 'Launch Your Podcast: Production & Sound',
+                description: 'Covers equipment setup, interview techniques, basic non-technical audio editing (removing pauses, light leveling), and RSS feed distribution.',
+                audience: 'Entrepreneurs, thought leaders, and anyone looking to start an audio channel.',
+                instructor: 'Maria L. (Audio Production Specialist)',
+                delivery: 'Video lessons and audio engineering cheat sheets.',
+                duration: '6 Weeks (Approx. 2 hours per week)',
+            },
+            'voice-over-training': {
+                name: 'Professional Voice-over Development',
+                description: 'Training on vocal clarity, script interpretation, establishing a quiet home recording space, and recording etiquette for client work.',
+                audience: 'Video narrators, audiobook readers, and public speakers.',
+                instructor: 'David R. (Voice Coach)',
+                delivery: 'Audio and video training, with practice scripts and feedback sessions.',
+                duration: '8 Weeks (Self-paced practice required)',
+            },
+            'ugc-creation': {
+                name: 'UGC Content Creation for Brands',
+                description: 'How to successfully film authentic, compelling user-generated content for paid campaigns, including pitching to brands and mastering video hooks.',
+                audience: 'Individuals looking to monetize their social media presence by creating content for companies.',
+                instructor: 'Sarah J. (UGC Creator & Strategist)',
+                delivery: 'Video modules, UGC template scripts, and brand pitch templates.',
+                duration: '3 Weeks (Project-based learning)',
+            },
+            'photography': {
+                name: 'Smartphone Photography for Business',
+                description: 'Techniques to capture high-quality product, lifestyle, and portrait images using only a smartphone, focusing on lighting and composition.',
+                audience: 'E-commerce sellers, bloggers, and social media contributors.',
+                instructor: 'Chris A. (Mobile Photographer)',
+                delivery: 'Video lessons, practical field assignments, and editing app guides.',
+                duration: '5 Weeks (Approx. 1 hour per week)',
+            },
+            'proofreading-editing': {
+                name: 'Advanced Proofreading & Editing',
+                description: 'A deep dive into style guides, syntax refinement, spotting common errors, and enhancing the flow and tone of professional documents and web content.',
+                audience: 'Virtual assistants, content managers, and aspiring book editors.',
+                instructor: 'Dr. E. Williams (Language Specialist)',
+                delivery: 'Module videos, extensive practice quizzes, and editing workflows.',
+                duration: '6 Weeks (Approx. 2 hours per week)',
+            },
+            'transcription-subtitling': {
+                name: 'Accurate Transcription & Video Subtitling',
+                description: 'Learn fast and accurate transcription workflows, subtitle timing, speaker identification, and formatting for accessibility standards across platforms.',
+                audience: 'Freelancers seeking transcription work and video producers.',
+                instructor: 'Laura B. (Media Accessibility Expert)',
+                delivery: 'Video lessons and downloadable software guides.',
+                duration: '4 Weeks (Focused on workflow development)',
+            },
+            'digital-marketing': {
+                name: 'Foundations of Integrated Digital Marketing',
+                description: 'Covers the core pillars of digital strategy: awareness, consideration, and conversion. Learn to integrate SEO, social, and email for cohesive campaigns.',
+                audience: 'Marketing newcomers, entrepreneurs managing their own efforts.',
+                instructor: 'CE Strategy Team',
+                delivery: 'Recorded video curriculum and a final capstone project.',
+                duration: '8 Weeks (Approx. 2 hours per week)',
+            },
+            'social-media-marketing': {
+                name: 'Social Media Strategy & Engagement',
+                description: 'Building brand presence, running organic growth campaigns on major platforms (Instagram, LinkedIn), and developing a robust content calendar.',
+                audience: 'Small business owners, community managers, and marketing associates.',
+                instructor: 'Ryan P. (Social Media Consultant)',
+                delivery: 'Recorded video modules, content calendar templates, and engagement scripts.',
+                duration: '6 Weeks (Approx. 1.5 hours per week)',
+            },
+            'email-marketing': {
+                name: 'Email Funnels & Automation Mastery',
+                description: 'Design high-converting welcome sequences, promotional funnels, and abandonment campaigns using popular email service providers (non-technical setup).',
+                audience: 'E-commerce managers, course creators, and service providers.',
+                instructor: 'Sarah M. (Email Automation Expert)',
+                delivery: 'Step-by-step video tutorials and high-performing email templates.',
+                duration: '4 Weeks (Focus on implementation)',
+            },
+            'non-technical-seo': {
+                name: 'Content-First SEO Strategy',
+                description: 'Master keyword research, competitive analysis, on-page optimization (headings, meta descriptions), and content structure to rank higher organically.',
+                audience: 'Bloggers, content writers, and marketing generalists.',
+                instructor: 'Kevin L. (Content & SEO Specialist)',
+                delivery: 'Recorded video modules, keyword research tool guides.',
+                duration: '7 Weeks (Approx. 2 hours per week)',
+            },
+            'branding-personal-brand': {
+                name: 'Defining Your Brand Authority',
+                description: 'Establish clear brand values, mission statement, voice, and visual identity. Learn to position yourself or your business as an industry leader.',
+                audience: 'Freelancers, consultants, and founders looking to increase market authority.',
+                instructor: 'Dr. E. Williams (Brand Psychologist)',
+                delivery: 'Interactive workshops (recorded) and branding worksheets.',
+                duration: '3 Weeks (Intensive self-reflection)',
+            },
+            'community-management': {
+                name: 'Building & Moderating Digital Communities',
+                description: 'Strategies for fostering engagement, setting community guidelines, handling moderation, and turning members into passionate brand advocates.',
+                audience: 'Brand representatives, group admins, and customer success teams.',
+                instructor: 'Lisa H. (Community Builder)',
+                delivery: 'Video modules and moderation best-practice guides.',
+                duration: '5 Weeks (Focus on soft skills)',
+            },
+            'affiliate-marketing': {
+                name: 'Profitable Affiliate Marketing Streams',
+                description: 'Finding high-paying products, creating content that converts without being pushy, and ensuring full legal disclosure and compliance.',
+                audience: 'Bloggers, influencers, and content creators looking for passive income.',
+                instructor: 'Sam K. (Affiliate Consultant)',
+                delivery: 'Recorded video curriculum, niche research guides.',
+                duration: '4 Weeks (Focus on niche selection)',
+            },
+            'ecommerce-dropshipping': {
+                name: 'E-commerce Store Setup & Operations',
+                description: 'Non-technical guide to setting up a store (Shopify/WooCommerce), basic product sourcing, managing inventory/dropshipping logistics, and simple fulfillment.',
+                audience: 'First-time e-commerce sellers and retail entrepreneurs.',
+                instructor: 'Marco R. (E-commerce Founder)',
+                delivery: 'Step-by-step video tutorials and supplier checklists.',
+                duration: '8 Weeks (Project-based store launch)',
+            },
+            'freelancing-mastery': {
+                name: 'High-Value Freelancing & Platform Mastery',
+                description: 'Developing a high-converting profile, writing winning proposals, pricing services effectively, and mastering client communication on platforms like Upwork and Fiverr.',
+                audience: 'Anyone looking to start or scale their freelance career.',
+                instructor: 'Jane S. (Top-Rated Freelancer)',
+                delivery: 'Video modules, proposal templates, and pricing calculators.',
+                duration: '5 Weeks (Focus on client acquisition)',
+            },
+            'virtual-assistant-training': {
+                name: 'Executive Virtual Assistant Excellence',
+                description: 'Advanced skills in calendar management, email filtering, travel planning, digital organization (cloud tools), and high-level client communication.',
+                audience: 'Aspiring Executive VAs and current VAs seeking to uplevel their services.',
+                instructor: 'Amanda P. (Former Executive Assistant)',
+                delivery: 'Video training, organizational system templates, and resource guides.',
+                duration: '7 Weeks (Focus on efficiency)',
+            },
+            'online-coaching': {
+                name: 'Launch Your Signature Course & Coaching',
+                description: 'From validating your topic idea to structuring a curriculum, selecting a course platform (non-technical), pricing your offerings, and creating simple sales pages.',
+                audience: 'Experts, trainers, and consultants ready to turn knowledge into a digital product.',
+                instructor: 'Alex D. (Digital Educator)',
+                delivery: 'Recorded video training, curriculum planners, and launch checklists.',
+                duration: '6 Weeks (Project: Course outline and validation)',
+            },
+            'public-speaking': {
+                name: 'Persuasive Public Speaking for Digital Leaders',
+                description: 'Techniques to overcome stage fright, structure a powerful narrative, deliver engaging presentations (online and offline), and master audience connection.',
+                audience: 'Executives, entrepreneurs, and anyone who needs to present ideas effectively.',
+                instructor: 'David R. (Communication Coach)',
+                delivery: 'Video lessons, speech templates, and public practice exercises.',
+                duration: '4 Weeks (Intensive practice)',
+            },
+            'presentation-design': {
+                name: 'High-Impact Presentation & Pitch Deck Design',
+                description: 'Focus on visual hierarchy, storytelling through slides, data visualization without complex charts, and creating pitch decks that secure investment or client buy-in.',
+                audience: 'Sales professionals, startup founders, and consultants.',
+                instructor: 'Mark T. (Presentation Designer)',
+                delivery: 'Video tutorials and a library of reusable slide templates.',
+                duration: '3 Weeks (Project-based design)',
+            },
+            'customer-support': {
+                name: 'Customer Success & Retention Strategies',
+                description: 'Building loyalty, handling difficult and emotional client interactions, implementing feedback loops, and proactively managing the customer journey for high retention.',
+                audience: 'Customer support agents, customer success managers, and team leads.',
+                instructor: 'Lisa H. (Customer Experience Expert)',
+                delivery: 'Recorded video training, role-playing scenarios, and support script templates.',
+                duration: '5 Weeks (Focus on soft skills & systems)',
+            },
+        };
+
+        // --- GENERAL JS FUNCTIONS ---
+
+        /**
+         * Toggles the visibility of the mobile menu.
+         */
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        /**
+         * Displays a temporary, dismissible message (replaces alert() or console logs UX changes).
+         * @param {string} message - The message content.
+         * @param {string} bgColor - Tailwind background color class.
+         */
+        function showMessage(message, bgColor = 'bg-ce-black') {
+            const container = document.getElementById('message-container');
+            const messageElement = document.createElement('div');
+            const id = 'msg-' + Date.now();
+
+            messageElement.id = id;
+            messageElement.className = `${bgColor} text-white p-4 rounded-lg shadow-xl max-w-xs transition-opacity duration-300 opacity-0 transform translate-y-2`;
+            messageElement.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium">${message}</span>
+                    <button class="text-white ml-4 opacity-75 hover:opacity-100" onclick="document.getElementById('${id}').remove()">
+                        <!-- Close Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            `;
+            container.appendChild(messageElement);
+
+            // Animate in
+            setTimeout(() => {
+                messageElement.classList.remove('opacity-0', 'translate-y-2');
+            }, 10);
+
+            // Auto-remove after 4 seconds
+            setTimeout(() => {
+                messageElement.classList.add('opacity-0', 'translate-y-2');
+                // Remove from DOM after transition
+                messageElement.addEventListener('transitionend', () => messageElement.remove());
+            }, 4000);
+        }
+        
+        /**
+         * Opens the dynamic course modal and populates it with data.
+         * @param {string} courseId - The unique ID key for the course in the courseData object.
+         */
+        function openCourseModal(courseId) {
+            const course = courseData[courseId];
+            if (!course) {
+                showMessage(`Error: Course data not found for ID: ${courseId}`, 'bg-ce-error');
+                return;
+            }
+
+            const modal = document.getElementById('course-info-modal');
+            const modalContent = modal.querySelector('#modal-content-container');
+
+            // 1. Populate the fields
+            document.getElementById('modal-course-name').textContent = course.name;
+            document.getElementById('modal-description').textContent = course.description;
+            document.getElementById('modal-audience').textContent = course.audience;
+            document.getElementById('modal-instructor').textContent = course.instructor;
+            document.getElementById('modal-delivery').textContent = course.delivery;
+            document.getElementById('modal-duration').textContent = course.duration;
+            
+            // Store the course name for the success message
+            modal.setAttribute('data-course-name', course.name);
+
+            // Show modal with transition effects
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); // Prevent background scrolling
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        /**
+         * Closes the course modal with transition effects.
+         */
+        function closeCourseModal(event) {
+            const modal = document.getElementById('course-info-modal');
+            
+            // Check if the click was on the backdrop itself to close
+            if (event && event.target !== modal) return;
+
+            const modalContent = modal.querySelector('#modal-content-container');
+
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            document.body.classList.remove('overflow-hidden');
+
+            // Hide after transition
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        /**
+         * Handles the final syllabus request CTA inside the modal.
+         */
+        function handleSyllabusRequest() {
+            const emailInput = document.getElementById('modal-email-input').value.trim();
+            const courseName = document.getElementById('course-info-modal').getAttribute('data-course-name');
+            
+            if (!emailInput || !emailInput.includes('@') || !emailInput.includes('.')) {
+                showMessage('Please enter a valid email address.', 'bg-ce-error');
+                return;
+            }
+
+            // Mock submission success
+            showMessage(`Success! Syllabus for "${courseName}" sent to ${emailInput}.`, 'bg-ce-success');
+            
+            // Clear input and close modal
+            document.getElementById('modal-email-input').value = '';
+            closeCourseModal();
+        }
+
+        // Dummy function for the general CTA button (reusing the logic structure for simplicity)
+        function openInfoModal(actionText) {
+            const modal = document.getElementById('course-info-modal');
+            const modalContent = modal.querySelector('#modal-content-container');
+
+            // Set generic waitlist content
+            document.getElementById('modal-course-name').textContent = actionText;
+            document.getElementById('modal-description').textContent = "This is the general waitlist for all upcoming courses. By signing up, you’ll be the first to hear about launch dates and special bundles.";
+            document.getElementById('modal-audience').textContent = 'Everyone interested in Circular Eagle Academy.';
+            document.getElementById('modal-instructor').textContent = 'Circular Eagle Team';
+            document.getElementById('modal-delivery').textContent = 'Email updates only.';
+            document.getElementById('modal-duration').textContent = 'Ongoing (until launch)';
+
+            modal.setAttribute('data-course-name', 'General Waitlist');
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); 
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        // Allow closing modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !document.getElementById('course-info-modal').classList.contains('hidden')) {
+                closeCourseModal();
+            }
+        });
+    </script>
+</body>
+</html>
