@@ -477,9 +477,9 @@
                 <p class="text-ce-black text-lg mb-6 max-w-2xl mx-auto opacity-80">
                     Join the waitlist for the upcoming cohort and receive exclusive early access and pricing announcements.
                 </p>
-                <!-- This button is just a general waitlist, not linked to a specific course -->
+                <!-- This button now opens the modal configured for the general waitlist -->
                 <button 
-                    onclick="openInfoModal('General Waitlist Sign-up')"
+                    onclick="openGeneralWaitlistModal()"
                     class="btn-gold-effect inline-flex items-center justify-center px-10 py-3 border border-ce-black text-lg font-bold rounded-full text-ce-white bg-ce-black hover:bg-ce-gold-dark hover:text-white transition-default"
                 >
                     Secure My Early Access
@@ -589,32 +589,21 @@
                         Enter your email below to receive the **full course syllabus**, including module breakdowns, pricing, and launch dates.
                     </p>
                     
-                    <!-- FormSubmit Form Starts Here -->
-                    <form 
-                        id="syllabus-request-form" 
-                        action="https://formsubmit.co/circulareagle@gmail.com" 
-                        method="POST" 
-                        onsubmit="return handleSyllabusRequest(event)"
-                    >
-                        <!-- Hidden field to redirect back to the page after submission -->
-                        <input type="hidden" name="_next" value="[YOUR_HOMEPAGE_URL_HERE]?form_submitted=true">
-                        <!-- Hidden field for honeypot (spam prevention) -->
-                        <input type="hidden" name="_honeypot" value="">
-                        <!-- Hidden field for the course name, dynamically set by JavaScript -->
-                        <input type="hidden" name="_subject" id="form-subject" value="New Syllabus Request">
-                        <input type="hidden" name="Course_Name" id="form-course-name" value="General Waitlist">
+                    <!-- FORM WRAPPER: Now a genuine FormSubmit form -->
+                    <form id="syllabus-form" action="https://formsubmit.co/circulareagle@gmail.com" method="POST">
                         
-                        <!-- Email Input -->
-                        <input 
-                            type="email" 
-                            name="Email" 
-                            id="modal-email-input" 
-                            placeholder="Enter your email address..." 
-                            class="w-full p-3 mb-4 border-2 border-gray-200 rounded-lg focus:border-ce-gold-dark focus:ring-0 transition-default" 
-                            required 
-                        />
+                        <!-- FormSubmit Hidden Fields -->
+                        <!-- The _next field redirects the user back to the current URL plus a success parameter -->
+                        <input type="hidden" name="_next" id="_next_url" value="" />
+                        <!-- The _subject field is dynamically set via JS when the modal opens -->
+                        <input type="hidden" name="_subject" id="_form_subject" value="Syllabus Request from Circular Eagle" />
+                        <!-- Optional: Anti-spam honeypot field. Leave the value empty. -->
+                        <input type="hidden" name="_honeypot" value="" /> 
 
-                        <!-- Final CTA Button -->
+                        <!-- Email Input: Name 'email' is crucial for form submission -->
+                        <input type="email" name="email" id="modal-email-input" required placeholder="Enter your email address..." class="w-full p-3 mb-4 border-2 border-gray-200 rounded-lg focus:border-ce-gold-dark focus:ring-0 transition-default" />
+
+                        <!-- Final CTA Button: Now a submit button -->
                         <button 
                             type="submit"
                             class="w-full py-3 px-6 text-base font-bold rounded-full bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default btn-gold-effect"
@@ -622,7 +611,6 @@
                             Send Me the Full Syllabus
                         </button>
                     </form>
-                    <!-- FormSubmit Form Ends Here -->
                 </div>
 
             </div>
@@ -903,9 +891,15 @@
             document.getElementById('modal-delivery').textContent = course.delivery;
             document.getElementById('modal-duration').textContent = course.duration;
             
-            // 2. Set dynamic FormSubmit fields
-            document.getElementById('form-subject').value = `Syllabus Request: ${course.name}`;
-            document.getElementById('form-course-name').value = course.name;
+            // 2. Set hidden fields for FormSubmit
+            const subjectInput = document.getElementById('_form_subject');
+            subjectInput.value = `Syllabus Request for: ${course.name}`;
+
+            // Set the return URL after submission. Removes existing query string and adds success status.
+            document.getElementById('_next_url').value = window.location.href.split('?')[0] + '?status=success&course=' + encodeURIComponent(course.name);
+
+            // Clear email input if modal is reused
+            document.getElementById('modal-email-input').value = '';
 
             // Show modal with transition effects
             modal.classList.remove('hidden');
@@ -939,35 +933,11 @@
         }
 
         /**
-         * Handles the final syllabus request CTA inside the modal.
-         * FormSubmit handles the actual network request, so this function focuses on validation and UX feedback.
-         * @param {Event} event - The form submission event.
+         * Handles the general waitlist sign-up triggered by the final CTA button.
+         * Reuses the modal structure but populates with general info.
          */
-        function handleSyllabusRequest(event) {
-            const emailInput = document.getElementById('modal-email-input').value.trim();
-            const courseName = document.getElementById('form-course-name').value;
-            
-            // Basic client-side validation
-            if (!emailInput || !emailInput.includes('@') || !emailInput.includes('.')) {
-                showMessage('Please enter a valid email address.', 'bg-ce-error');
-                // Prevent form submission if validation fails
-                event.preventDefault();
-                return false; 
-            }
-
-            // Client-side UX feedback
-            showMessage(`Requesting syllabus for "${courseName}". We're sending you to the FormSubmit page now...`, 'bg-ce-black');
-            
-            // Since FormSubmit performs a redirect, we close the modal for a better user experience on return.
-            // The actual form submission will happen via the browser when this function returns true.
-            closeCourseModal();
-
-            return true; // Allows form submission
-        }
-
-
-        // Dummy function for the general CTA button (reusing the logic structure for simplicity)
-        function openInfoModal(actionText) {
+        function openGeneralWaitlistModal() {
+            const actionText = 'General Waitlist Sign-up';
             const modal = document.getElementById('course-info-modal');
             const modalContent = modal.querySelector('#modal-content-container');
 
@@ -979,10 +949,12 @@
             document.getElementById('modal-delivery').textContent = 'Email updates only.';
             document.getElementById('modal-duration').textContent = 'Ongoing (until launch)';
 
-            // Set dynamic FormSubmit fields for general waitlist
-            document.getElementById('form-subject').value = `General Waitlist Sign-up: ${actionText}`;
-            document.getElementById('form-course-name').value = 'General Waitlist';
+            // Set hidden fields for FormSubmit
+            document.getElementById('_form_subject').value = actionText; 
+            document.getElementById('_next_url').value = window.location.href.split('?')[0] + '?status=success&course=General%20Waitlist';
 
+            // Clear email input if modal is reused
+            document.getElementById('modal-email-input').value = '';
 
             modal.classList.remove('hidden');
             document.body.classList.add('overflow-hidden'); 
@@ -993,22 +965,29 @@
             }, 10);
         }
 
+
+        // --- URL PARAMETER HANDLER ---
+        /**
+         * Checks the URL on page load for a success status from FormSubmit's redirect.
+         * Shows a message and cleans the URL.
+         */
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('status') === 'success') {
+                const courseName = urlParams.get('course') || 'a course';
+                showMessage(`Thank you! Your request for "${decodeURIComponent(courseName)}" has been successfully sent.`, 'bg-ce-success');
+                
+                // Clean the URL history state to remove parameters
+                history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
         // Allow closing modal with ESC key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !document.getElementById('course-info-modal').classList.contains('hidden')) {
                 closeCourseModal();
             }
         });
-
-        // Check if a form submitted successfully on page load (from FormSubmit redirect)
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('form_submitted') === 'true') {
-                showMessage('Thank you! Your request has been successfully sent. Check your email soon!', 'bg-ce-success');
-                // Clean the URL history state for a cleaner look
-                history.replaceState(null, '', window.location.pathname);
-            }
-        }
     </script>
 </body>
-    </html>
+                                                                                                                                                                                                                                                                                                                                                                                                              </html>
