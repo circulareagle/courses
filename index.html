@@ -474,20 +474,23 @@
                 const submitButton = form.querySelector('button[type="submit"]');
                 submitButton.disabled = true;
                 
-                // Get the action URL from the form (which contains the FormSubmit email)
                 const actionUrl = form.getAttribute('action');
                 
                 // Create a FormData object from the form elements
                 const formData = new FormData(form);
+                
+                // CRITICAL FIX: Convert FormData to URLSearchParams to force application/x-www-form-urlencoded
+                // This is the most reliable way to send non-JSON data via AJAX that FormSubmit expects.
+                const params = new URLSearchParams(formData);
 
                 try {
-                    // Use fetch to send the form data asynchronously.
-                    // The 'Accept: application/json' header is essential for FormSubmit 
-                    // to prevent redirection to their thank you page.
                     const response = await fetch(actionUrl, {
                         method: 'POST',
-                        body: formData,
+                        body: params, // Send as URLSearchParams
                         headers: {
+                            // Explicitly set Content-Type for URL-encoded data
+                            'Content-Type': 'application/x-www-form-urlencoded', 
+                            // This header is still required for FormSubmit to suppress redirection
                             'Accept': 'application/json' 
                         }
                     });
@@ -497,7 +500,7 @@
                         form.reset();
                         showMessage('Your consultancy request has been submitted successfully!', 'bg-ce-gold-dark');
                     } else {
-                        // Attempt to parse FormSubmit's error response
+                        // Attempt to parse FormSubmit's error response (for debugging)
                         let errorMessage = 'Something went wrong during submission.';
                         try {
                             const errorData = await response.json();
