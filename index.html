@@ -11,6 +11,22 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://circulareagle.com/" />
     
+    <!-- JSON-LD Structured Data for Organization (Helps control brand name on SERP) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Circular Eagle",
+      "url": "https://circulareagle.com/",
+      "logo": "Untitled design_20251120_121850_0000.png",
+      "sameAs": [
+        "https://twitter.com/circulareagle", 
+        "https://www.linkedin.com/company/circular-eagle"
+        /* Add other social profiles here */
+      ]
+    }
+    </script>
+
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Configure Tailwind with Custom Luxury Palette -->
@@ -71,6 +87,23 @@
             border-radius: 2px;
         }
 
+        /* Responsive form for mobile/desktop alignment */
+        .form-responsive {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .form-responsive {
+                flex-direction: row;
+            }
+            .form-responsive input {
+                flex-grow: 1;
+            }
+            .form-responsive button {
+                flex-shrink: 0;
+            }
+        }
     </style>
 </head>
 <body class="bg-ce-background text-ce-black font-sans min-h-screen antialiased">
@@ -98,6 +131,8 @@
                 <nav class="hidden md:flex space-x-10">
                     <a href="#ebooks" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">eBooks</a>
                     <a href="#courses" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Courses</a>
+                    <!-- NEW LINK ADDED -->
+                    <a href="#lead-magnet" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Free Guide</a>
                     <a href="#testimonials" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Testimonials</a>
                     <a href="#articles" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Insights</a>
                     <a href="#consultancy" class="text-base font-medium text-ce-muted hover:text-ce-gold-dark transition-default">Consultancy</a>
@@ -116,6 +151,8 @@
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="#ebooks" onclick="toggleMenu()" class="block px-3 py-3 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">eBooks</a>
                 <a href="#courses" onclick="toggleMenu()" class="block px-3 py-3 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Courses</a>
+                <!-- NEW LINK ADDED -->
+                <a href="#lead-magnet" onclick="toggleMenu()" class="block px-3 py-3 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Free Guide</a>
                 <a href="#testimonials" onclick="toggleMenu()" class="block px-3 py-3 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Testimonials</a>
                 <a href="#articles" onclick="toggleMenu()" class="block px-3 py-3 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Insights</a>
                 <a href="#consultancy" onclick="toggleMenu()" class="block px-3 py-3 rounded-md text-base font-medium text-ce-black hover:bg-gray-50 hover:text-ce-gold-dark transition-default">Consultancy</a>
@@ -349,6 +386,34 @@
                 </div>
             </section>
             
+            <!-- 4.5. NEW LEAD MAGNET / NEWSLETTER SIGNUP SECTION -->
+            <section id="lead-magnet" class="py-24 my-20 bg-ce-black rounded-3xl p-8 md:p-16 text-center shadow-2xl border border-ce-gold-dark/50">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Eagle Icon Placeholder for visual flair -->
+                    <div class="mb-4 text-ce-gold mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z" fill="none"/><path d="M12 2L6 10l-4 3 6-4 4-8zM12 2L18 10l4 3-6-4-4-8z"/></svg>
+                    </div>
+                    
+                    <h2 class="font-serif text-5xl font-extrabold text-ce-white mb-4 leading-snug">
+                        The <span class="text-ce-gold">High-Leverage</span> Playbook.
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                        Join our exclusive newsletter and immediately receive the <strong>"5-Step Blueprint for 10x Productivity."</strong>
+                    </p>
+                    
+                    <form id="newsletterForm" class="max-w-xl mx-auto form-responsive" aria-label="Newsletter Signup Form">
+                        <input id="newsletterEmail" type="email" class="w-full px-6 py-4 border-2 border-ce-gold/50 rounded-xl bg-gray-900 text-white placeholder-gray-500 focus:ring-ce-gold focus:border-ce-gold transition-default text-lg" name="email" required placeholder="Enter your high-leverage email" />
+                        
+                        <button type="submit" id="newsletterSubmitButton" class="btn-gold-effect py-4 px-8 text-lg font-bold rounded-xl bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default w-full sm:w-auto">
+                            Get Instant Access
+                        </button>
+                    </form>
+                    <div id="newsletterStatus" aria-live="polite" class="text-center mt-4 text-sm text-gray-500">Zero spam. Pure signal.</div>
+                </div>
+            </section>
+            <!-- END NEW LEAD MAGNET SECTION -->
+
+
             <!-- 5. TESTIMONIALS SECTION: Social Proof -->
             <section id="testimonials" class="py-16">
                 <h2 class="font-serif text-4xl font-bold text-center mb-2">
@@ -529,6 +594,7 @@
                     <ul class="space-y-3 text-base">
                         <li><a href="#ebooks" class="text-ce-muted hover:text-ce-gold-dark transition-default">eBook Library</a></li>
                         <li><a href="#courses" class="text-ce-muted hover:text-ce-gold-dark transition-default">Course Index</a></li>
+                        <li><a href="#lead-magnet" class="text-ce-muted hover:text-ce-gold-dark transition-default">Free Blueprint</a></li>
                         <li><a href="#articles" class="text-ce-muted hover:text-ce-gold-dark transition-default">Latest Insights</a></li>
                     </ul>
                 </div>
@@ -608,6 +674,13 @@
             messageElement.style.opacity = '0';
             messageElement.style.transform = 'translateY(20px)'; 
 
+            // Handle responsive stacking on mobile
+            container.classList.remove('space-y-2', 'fixed');
+            container.classList.add('flex', 'flex-col', 'items-end', 'space-y-2');
+            messageElement.classList.remove('fixed', 'bottom-4', 'right-4');
+            messageElement.classList.add('relative', 'w-full');
+
+
             messageElement.innerHTML = `
                 <div class="flex items-center justify-between">
                     <span class="text-sm font-medium">${message}</span>
@@ -638,6 +711,7 @@
 
         /**
          * Handles the AJAX submission for the contact form using FormSubmit.
+         * NOTE: This is for the #contactForm (Consultancy)
          */
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -710,7 +784,35 @@
                 submitButton.classList.remove('opacity-70');
             }
         });
+
+        /**
+         * Handles the submission for the newsletter form.
+         * NOTE: This simulates submission for demonstration purposes.
+         */
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('newsletterEmail');
+            const submitButton = document.getElementById('newsletterSubmitButton');
+            const statusDiv = document.getElementById('newsletterStatus');
+
+            // Simulate submission process
+            submitButton.disabled = true;
+            submitButton.textContent = 'Subscribing...';
+            statusDiv.textContent = 'Processing request...';
+            
+            setTimeout(() => {
+                // Simulate success
+                showMessage('Success! Check your email for the blueprint.', 'bg-ce-gold-dark');
+                statusDiv.textContent = 'Success! Check your inbox for the free guide.';
+                emailInput.value = '';
+
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = 'Get Instant Access';
+            }, 1500);
+        });
     </script>
     
 </body>
-                                                                                                                                                           </html>
+    </html>
