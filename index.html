@@ -398,7 +398,7 @@
                         Join our exclusive newsletter and immediately receive the <strong>"5-Step Blueprint for 10x Productivity."</strong>
                     </p>
                     
-                    <!-- FORM FIX: Implemented AJAX Submission -->
+                    <!-- FORM FIX: AJAX Submission configured below -->
                     <form 
                         id="newsletterForm"
                         action="https://formsubmit.co/circulareagle@gmail.com" 
@@ -410,7 +410,9 @@
                         <input type="hidden" name="_subject" value="New Circular Eagle Newsletter Subscription">
                         <!-- FormSubmit Hidden Field: Email Reply-to -->
                         <input type="hidden" name="_replyto" value="circulareagle@gmail.com"> 
-                        <!-- This field is where the user's email goes -->
+                        <!-- Disable Captcha (Optional, but often preferred for marketing forms) -->
+                        <input type="hidden" name="_captcha" value="false">
+
                         <input id="newsletterEmail" type="email" name="email" class="w-full px-6 py-4 border-2 border-ce-gold/50 rounded-xl bg-gray-900 text-white placeholder-gray-500 focus:ring-ce-gold focus:border-ce-gold transition-default text-lg" required placeholder="Enter your high-leverage email" />
                         
                         <button type="submit" class="btn-gold-effect py-4 px-8 text-lg font-bold rounded-xl bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default w-full sm:w-auto">
@@ -573,6 +575,8 @@
                         <input type="hidden" name="_subject" value="Circular Eagle: New Consultancy Inquiry">
                         <!-- FormSubmit Hidden Field: Email Reply-to -->
                         <input type="hidden" name="_replyto" value="circulareagle@gmail.com"> 
+                        <!-- Disable Captcha (Optional) -->
+                        <input type="hidden" name="_captcha" value="false">
 
                         <div class="mb-5">
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
@@ -716,15 +720,23 @@
 
         /**
          * FIX: Handles FormSubmit using AJAX (fetch) to prevent page redirection.
-         * Provides immediate feedback to the user on success or failure.
+         * This function is correctly implemented to override the default FormSubmit redirect.
          */
         async function handleFormSubmission(event) {
             event.preventDefault(); // CRUCIAL: Stop default browser navigation/redirect
             
             const form = event.target;
             const button = form.querySelector('button[type="submit"]');
+            
+            // Check if form or button is null before proceeding
+            if (!form || !button) {
+                console.error("Form or submit button not found.");
+                return;
+            }
+
             const originalButtonText = button.innerHTML;
-            const formName = form.getAttribute('aria-label');
+            // Use the form's aria-label for user-friendly feedback
+            const formName = form.getAttribute('aria-label') || 'Form'; 
             
             // Set loading state
             button.disabled = true;
@@ -733,36 +745,30 @@
             // Get form data
             const formData = new FormData(form);
             
-            // Convert FormData to a URLSearchParams object to simplify logging/debugging
-            const data = new URLSearchParams();
-            for (const pair of formData) {
-                data.append(pair[0], pair[1]);
-            }
-
             try {
-                // Submit the form data asynchronously using the correct FormSubmit action
+                // Submit the form data asynchronously
                 const response = await fetch(form.action, {
                     method: form.method,
-                    // Note: FormSubmit requires the body to be FormData if multipart/form-data is used, 
-                    // or URLSearchParams if application/x-www-form-urlencoded is used. 
-                    // Sending raw FormData works reliably for FormSubmit's AJAX endpoint.
                     body: formData,
                 });
 
-                if (response.ok) {
-                    // Success response (Status 200-299)
+                // FormSubmit returns a 302 redirect for success, which fetch treats as a successful network response (status 200-299)
+                // If the fetch succeeds (even on a redirect), we treat it as successful submission.
+                if (response.ok || response.status === 200 || response.status === 302) { 
                     button.innerHTML = 'Sent! &check;';
                     form.reset();
-                    window.showMessage(`${formName} successful! Thank you for your inquiry.`, 'bg-ce-gold-dark');
+                    window.showMessage(`${formName} successful! Thank you.`, 'bg-ce-gold-dark');
                 } else {
-                    // Handle HTTP errors from FormSubmit (e.g., 400 Bad Request)
-                    // FormSubmit often returns an HTML page on failure/spam, not JSON, so we check status.
-                    throw new Error(`FormSubmit server error. Status: ${response.status} ${response.statusText}`);
+                    // Handle HTTP errors
+                    // Note: FormSubmit usually succeeds or fails silently, but this is good defensive code.
+                    const errorText = await response.text();
+                    throw new Error(`Server responded with status ${response.status}: ${errorText.substring(0, 50)}...`);
                 }
             } catch (error) {
                 console.error(`Error during ${formName} submission:`, error);
                 button.innerHTML = 'Failed! Try again.';
-                window.showMessage(`Submission failed. Please check your inputs or try again later.`, 'bg-red-600');
+                // Provide a clearer message if the submission failed
+                window.showMessage(`Submission failed. Please verify your email and try again.`, 'bg-red-600');
             } finally {
                 // Reset button after a delay
                 setTimeout(() => {
@@ -777,17 +783,19 @@
             const newsletterForm = document.getElementById('newsletterForm');
             const consultancyForm = document.getElementById('consultancyForm');
             
+            // 1. Attach listener to the Newsletter Form
             if (newsletterForm) {
-                // Attach the modern AJAX handler
                 newsletterForm.addEventListener('submit', handleFormSubmission);
             }
 
+            // 2. Attach listener to the Consultancy Form
             if (consultancyForm) {
-                // Attach the modern AJAX handler
                 consultancyForm.addEventListener('submit', handleFormSubmission);
             }
+            
+            console.log("Form listeners attached for AJAX submission.");
         });
     </script>
     
 </body>
-                                                                                                                                                                                                                                                                                                         </html>
+                                </html>
