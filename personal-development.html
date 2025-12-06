@@ -384,7 +384,7 @@
     </footer>
 
 
-    <!-- EBOOK DETAIL MODAL (Copied from base) -->
+    <!-- EBOOK DETAIL MODAL (Fixed for mobile scrolling) -->
     <div id="ebook-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-backdrop p-4 transition-opacity duration-300 opacity-0" onclick="closeModal(event)">
         <div class="bg-ce-white rounded-xl shadow-2xl w-full max-w-lg md:max-w-xl lg:max-w-2xl overflow-hidden transform transition-transform duration-300 scale-95" onclick="event.stopPropagation()">
             
@@ -403,18 +403,22 @@
                     <img id="modal-image" src="" alt="Ebook Cover" class="w-full max-h-48 object-cover rounded-lg ebook-cover mx-auto">
                 </div>
                 
-                <!-- Description -->
-                <p id="modal-description" class="text-ce-muted text-base mb-6 leading-relaxed">
-                    This is the full detailed description of the ebook, explaining its core benefits, modules, and target audience.
-                </p>
+                <!-- FIX: Scrollable container for the description -->
+                <div class="max-h-40 overflow-y-auto pr-2 mb-6"> 
+                    <!-- Description -->
+                    <p id="modal-description" class="text-ce-muted text-base leading-relaxed">
+                        This is the full detailed description of the ebook, explaining its core benefits, modules, and target audience.
+                    </p>
+                </div>
+                <!-- END FIX -->
 
-                <!-- Purchase Details -->
+                <!-- Purchase Details: Stays visible below the scrollable description -->
                 <div class="flex justify-between items-center py-4 border-y border-gray-100 mb-6">
                     <p class="text-lg font-semibold text-ce-black">Price:</p>
                     <span id="modal-price" class="text-3xl font-extrabold text-ce-gold-dark"></span>
                 </div>
 
-                <!-- Final Purchase Button -->
+                <!-- Final Purchase Button: Stays visible below the price -->
                 <button 
                     id="modal-purchase-link"
                     class="w-full py-3 px-6 text-lg font-bold rounded-full bg-ce-gold text-ce-black hover:bg-ce-gold-dark hover:text-white transition-default btn-gold-effect"
@@ -533,14 +537,18 @@
             document.getElementById('modal-image').src = imageUrl;
 
             const purchaseLink = document.getElementById('modal-purchase-link');
+            // --- FIX: The handler now performs the actual redirection ---
             purchaseLink.onclick = () => {
                 // Display quick redirection message
-                showMessage(`Redirecting for purchase of: ${title}`, 'bg-ce-gold-dark');
+                showMessage(`Redirecting for purchase of: ${title} in a new tab...`, 'bg-ce-gold-dark');
                 
-                // Simulate redirection (in a real browser this would be window.open(url, '_blank');)
-                console.log(`Simulating affiliate redirection to: ${url}`);
+                // Execute actual redirection to the affiliate partner's URL
+                // Opens in a new tab/window for external links
+                window.open(url, '_blank');
+
                 closeModal(); // Close the modal after triggering the action
             };
+            // --- END FIX ---
             
             // Show modal with transition effects
             modal.classList.remove('hidden');
