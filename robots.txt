@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.circulareagle.com/sitemap.xml
+Sitemap: https://courses.circulareagle.com/sitemap.xml
